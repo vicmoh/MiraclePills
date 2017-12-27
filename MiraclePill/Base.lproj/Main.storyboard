@@ -149,6 +149,7 @@
                     </view>
                     <connections>
                         <outlet property="stateButton" destination="uUq-vt-byP" id="NZa-MH-ld5"/>
+                        <outlet property="stateLabel" destination="cjM-GP-chq" id="dYx-1l-SNF"/>
                         <outlet property="statePicker" destination="PRl-7r-vf6" id="Eal-Bs-u68"/>
                     </connections>
                 </viewController>
