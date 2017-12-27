@@ -61,6 +61,15 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    //create success image
+    let successImage: UIImageView = {
+        var imageView = UIImageView()
+        let image = UIImage(named: "successIndicator")
+        imageView = UIImageView(image: image)
+        imageView.isHidden = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
     func putObjectBelowConstraint(bottomObject: UIView, topObject: UIView){
         bottomObject.topAnchor.constraint(equalTo: topObject.bottomAnchor, constant: 5).isActive = true
@@ -81,6 +90,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         //constraint for buy image button
         buyButton.topAnchor.constraint(equalTo: zipCodeTextField.bottomAnchor, constant: 35).isActive = true
         buyButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        //constraint for success image
+        successImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        successImage.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }//end constraint func
     
     //set the textfield to default
@@ -92,7 +104,22 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         textField.returnKeyType = UIReturnKeyType.done
         textField.clearButtonMode = UITextFieldViewMode.whileEditing;
         textField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
-    }//end func
+    }//end default func
+    
+    @objc fileprivate func buyButtonPressed(sender: UIButton) {
+        print("Buy button is clicked.")
+        //set the default animation
+        successImage.isHidden = false
+        successImage.alpha = 1.0
+        //animate the image and show the image for certaint period time
+        UIView.animate(withDuration: 0.5, delay: 1, options: [], animations: {
+            //withDuration for: the fade out
+            //delay: how long you want to show
+            self.successImage.alpha = 0.0
+        }) { (finished: Bool) in
+            self.successImage.isHidden = true
+        }//end animate
+    }//end action listener
     
     /***************************************************/
     
@@ -110,6 +137,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         defaultSettingFor(textField: zipCodeTextField)
         //add the image buy button
         view.addSubview(buyButton)
+        buyButton.addTarget(self, action: #selector(buyButtonPressed(sender:)), for: UIControlEvents.touchUpInside)
+        //add success image
+        view.addSubview(successImage)
         //object setup
         setConstraints()
     }//end func
@@ -118,6 +148,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }//end func
+    
+    /***************************************************/
+    //for the UIPickerViewDataSource and UIPickerViewDelegate class
 
     @IBAction func stateButtonPressed(_ sender: Any) {
         statePicker.isHidden = false
