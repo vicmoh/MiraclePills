@@ -28,39 +28,77 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         //return label
         return label
     }()
-    //create constraint for the country label
-    func countryLabelConstraint(){
-        countryLabel.topAnchor.constraint(equalTo: stateLabel.bottomAnchor, constant: 40).isActive = true
-        countryLabel.leadingAnchor.constraint(equalTo: stateLabel.leadingAnchor).isActive = true
-        countryLabel.trailingAnchor.constraint(equalTo: stateLabel.trailingAnchor).isActive = true
-    }//end constarint
-    
     //textfield for the country
     let countryTextfield: UITextField = {
         let field = UITextField()
         field.placeholder = "Enter the country..."
-        //field.layer.borderWidth = 1
-        //field.layer.borderColor = UIColor.gray.cgColor
         field.translatesAutoresizingMaskIntoConstraints = false//VERY IMPORTANT
         return field
     }()
-    //create constraints for the country field
-    func countryTextFieldConstraint(){
-        countryTextfield.topAnchor.constraint(equalTo: countryLabel.bottomAnchor, constant: 5).isActive = true
-        countryTextfield.leadingAnchor.constraint(equalTo: countryLabel.leadingAnchor).isActive = true
-        countryTextfield.trailingAnchor.constraint(equalTo: countryLabel.trailingAnchor).isActive = true
-    }//end constraint
+    //create label for zip code
+    let zipCodeLabel: UILabel = {
+        //dec var
+        let label = UILabel()
+        label.text = "Zip Code"
+        label.textColor = UIColor.darkGray
+        label.translatesAutoresizingMaskIntoConstraints = false//VERY IMPORTANT
+        //return label
+        return label
+    }()
+    //create text field for zip code
+    //textfield for the country
+    let zipCodeTextField: UITextField = {
+        let field = UITextField()
+        field.placeholder = "Enter the zip code..."
+        field.translatesAutoresizingMaskIntoConstraints = false//VERY IMPORTANT
+        return field
+    }()
+    
+    func putObjectBelowConstraint(bottomObject: UIView, topObject: UIView){
+        bottomObject.topAnchor.constraint(equalTo: topObject.bottomAnchor, constant: 5).isActive = true
+        bottomObject.leadingAnchor.constraint(equalTo: topObject.leadingAnchor).isActive = true
+        bottomObject.trailingAnchor.constraint(equalTo: topObject.trailingAnchor).isActive = true
+    }
+    
+    //create constraints for all the objects
+    func setConstraints(){
+        //country label
+        countryLabel.topAnchor.constraint(equalTo: stateLabel.bottomAnchor, constant: 40).isActive = true
+        countryLabel.leadingAnchor.constraint(equalTo: stateLabel.leadingAnchor).isActive = true
+        countryLabel.trailingAnchor.constraint(equalTo: stateLabel.trailingAnchor).isActive = true
+        //all the object below the textfield
+        putObjectBelowConstraint(bottomObject: countryTextfield, topObject: countryLabel)
+        putObjectBelowConstraint(bottomObject: zipCodeLabel, topObject: countryTextfield)
+        putObjectBelowConstraint(bottomObject: zipCodeTextField, topObject: zipCodeLabel)
+    }//end constraint func
+    
+    //set the textfield to default
+    func defaultSettingFor(textField: UITextField){
+        textField.font = UIFont.systemFont(ofSize: 15)
+        textField.borderStyle = UITextBorderStyle.roundedRect
+        textField.autocorrectionType = UITextAutocorrectionType.no
+        textField.keyboardType = UIKeyboardType.default
+        textField.returnKeyType = UIReturnKeyType.done
+        textField.clearButtonMode = UITextFieldViewMode.whileEditing;
+        textField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
+    }//end func
+    
+    /***************************************************/
     
     override func viewDidLoad() {
         super.viewDidLoad()
         statePicker.dataSource = self
         statePicker.delegate = self
-        //add country label
+        //add country label and field
         view.addSubview(countryLabel)
-        countryLabelConstraint()
-        //add country field
         view.addSubview(countryTextfield)
-        countryTextFieldConstraint()
+        defaultSettingFor(textField: countryTextfield)
+        //add zip code label and field
+        view.addSubview(zipCodeLabel)
+        view.addSubview(zipCodeTextField)
+        defaultSettingFor(textField: zipCodeTextField)
+        //object setup
+        setConstraints()
     }//end func
 
     override func didReceiveMemoryWarning() {
@@ -71,6 +109,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBAction func stateButtonPressed(_ sender: Any) {
         statePicker.isHidden = false
         countryLabel.isHidden = true
+        countryTextfield.isHidden = true
+        zipCodeLabel.isHidden = true
+        zipCodeTextField.isHidden = true
     }//end listener
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -89,6 +130,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         stateButton.setTitle(states[row], for: UIControlState.normal)
         statePicker.isHidden = true
         countryLabel.isHidden = false
+        countryTextfield.isHidden = false
+        zipCodeLabel.isHidden = false
+        zipCodeTextField.isHidden = false
     }//end uipicker
 
 }//end class
