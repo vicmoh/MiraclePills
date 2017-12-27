@@ -16,7 +16,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet weak var stateLabel: UILabel!
     
     //create array for the ui picker
-    let states = ["Alaska", "Arkansas", "Alabama", "New York", "California", "Hawaii"]
+    let states = ["Ontario", "Quebec", "British Columbia", "Alberta", "Nova Scotia", "Manitoba"]
     
     //create label for country
     let countryLabel: UILabel = {
@@ -53,12 +53,20 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         field.translatesAutoresizingMaskIntoConstraints = false//VERY IMPORTANT
         return field
     }()
+    //create image
+    let buyButton: UIButton = {
+        var button = UIButton()
+        let image : UIImage = UIImage(named:"buyNowBtn")!
+        button.setImage(image, for: UIControlState.normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     func putObjectBelowConstraint(bottomObject: UIView, topObject: UIView){
         bottomObject.topAnchor.constraint(equalTo: topObject.bottomAnchor, constant: 5).isActive = true
         bottomObject.leadingAnchor.constraint(equalTo: topObject.leadingAnchor).isActive = true
         bottomObject.trailingAnchor.constraint(equalTo: topObject.trailingAnchor).isActive = true
-    }
+    }//end contraints func
     
     //create constraints for all the objects
     func setConstraints(){
@@ -70,6 +78,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         putObjectBelowConstraint(bottomObject: countryTextfield, topObject: countryLabel)
         putObjectBelowConstraint(bottomObject: zipCodeLabel, topObject: countryTextfield)
         putObjectBelowConstraint(bottomObject: zipCodeTextField, topObject: zipCodeLabel)
+        //constraint for buy image button
+        buyButton.topAnchor.constraint(equalTo: zipCodeTextField.bottomAnchor, constant: 35).isActive = true
+        buyButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }//end constraint func
     
     //set the textfield to default
@@ -97,6 +108,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         view.addSubview(zipCodeLabel)
         view.addSubview(zipCodeTextField)
         defaultSettingFor(textField: zipCodeTextField)
+        //add the image buy button
+        view.addSubview(buyButton)
         //object setup
         setConstraints()
     }//end func
