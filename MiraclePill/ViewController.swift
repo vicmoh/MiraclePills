@@ -42,6 +42,11 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return states[row]
     }//end uipicker
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        stateButton.setTitle(states[row], for: UIControlState.normal)
+        statePicker.isHidden = true
+    }//end uipicker
 
 }//end class
 

@@ -91,8 +91,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uUq-vt-byP">
-                                <rect key="frame" x="36" y="393" width="93" height="30"/>
-                                <state key="normal" title="Choose State"/>
+                                <rect key="frame" x="36" y="393" width="186" height="30"/>
+                                <state key="normal" title="Click here to choose states">
+                                    <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <action selector="stateButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zma-ah-V0f"/>
                                 </connections>
